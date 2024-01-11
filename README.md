@@ -11,4 +11,6 @@ DOMAIN
 INFRA.APPLICATION
 
 
-EF Core + JWT
+ORM  -> EF Core 
+
+JWT
