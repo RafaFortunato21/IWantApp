@@ -5,10 +5,10 @@ A proposta é desenvolver uma API que fundamente um sistema de Pedidos de Produt
 
 Estrutura do Projeto.
 
-API
-INFRA.DATA
-DOMAIN
-INFRA.APPLICATION
+API / 
+INFRA.DATA / 
+DOMAIN / 
+INFRA.APPLICATION / 
 
 
 ORM  -> EF Core 
