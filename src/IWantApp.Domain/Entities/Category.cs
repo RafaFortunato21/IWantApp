@@ -1,12 +1,24 @@
-﻿namespace IWantApp.Domain.Entities;
+﻿using Flunt.Validations;
+using IWantApp.Domain.Shared;
 
-public class Category
+namespace IWantApp.Domain.Entities;
+
+public class Category : Entity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; }
-    public string CreatedBy { get; set; }
-    public DateTime CreateOn { get; set; }
-    public string EditedBy { get; set; }
-    public DateTime EditedOn { get; set; }
-    
+
+
+
+    public Category(string name)
+    {
+        var contract = new Contract<Category>()
+            .IsNotNull(name, "Name");
+        
+        AddNotifications(contract);
+
+
+        Name = name;
+        Active = true;
+    }
+
 }

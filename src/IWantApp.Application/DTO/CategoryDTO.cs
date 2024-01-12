@@ -1,22 +1,16 @@
-﻿using Flunt.Notifications;
-using IWantApp.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IWantApp.Domain.Shared
+namespace IWantApp.Application.DTO
 {
-    public abstract class Entity : Notifiable<Notification>
+    public class CategoryDTO
     {
-        public Entity()
-        {
-            Id = Guid.NewGuid();
-        }
-
         public Guid Id { get; set; }
-        public bool Active { get; set; }
+        public string Name { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string EditedBy { get; set; }

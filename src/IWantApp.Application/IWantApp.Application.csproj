@@ -7,15 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="C:\NovoProjeto\IWantApp\src\IWantApp.Domain\.editorconfig" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="C:\NovoProjeto\IWantApp\src\IWantApp.Domain\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Flunt" Version="2.0.5" />
+    <ProjectReference Include="..\IWantApp.Domain\IWantApp.Domain.csproj" />
+    <ProjectReference Include="..\IWantApp.Infra.Data\IWantApp.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
