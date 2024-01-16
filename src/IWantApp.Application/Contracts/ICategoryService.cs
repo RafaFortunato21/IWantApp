@@ -13,8 +13,8 @@ namespace IWantApp.Application.Contracts
         Task<IEnumerable<CategoryDTO>> GetCategories();
         Task<CategoryDTO> GetById(Guid categoryId);
 
-        Task Add(CategoryDTO categoryDTO);
-        Task Update(CategoryUpdateDTO category, Guid categoryId);
+        Task Add(CategoryResponse categoryDTO, string userCreate);
+        Task Update(CategoryUpdateDTO category, Guid categoryId, string userUpdate);
         
     }
 }

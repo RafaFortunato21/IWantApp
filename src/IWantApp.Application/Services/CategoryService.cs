@@ -21,9 +21,15 @@ namespace IWantApp.Application.Services
             _categoryRepository  = categoryRepository;
             _mapper = mapper;
         }
-        public async Task Add(CategoryDTO categoryDTO)
+        public async Task Add(CategoryResponse categoryDTO, string userCreate)
         {
             var category = _mapper.Map<Category>(categoryDTO);
+
+            category.CreatedBy = userCreate.ToString();
+            category.CreatedOn = DateTime.Now;
+
+            category.EditedBy = userCreate.ToString();
+            category.EditedOn = DateTime.Now;
 
 
             await _categoryRepository.CreateAsync(category);
@@ -49,7 +55,7 @@ namespace IWantApp.Application.Services
             return _mapper.Map<IEnumerable<CategoryDTO>>(categories);
         }
 
-        public async Task Update(CategoryUpdateDTO categoryDto, Guid categoryId)
+        public async Task Update(CategoryUpdateDTO categoryDto, Guid categoryId, string userUpdate)
         {
             try
             {
@@ -58,6 +64,9 @@ namespace IWantApp.Application.Services
 
                 if (categoryEntity == null)
                     throw new Exception($"Entity could not be loaded.");
+
+                categoryEntity.EditedBy = userUpdate.ToString();
+                categoryEntity.EditedOn = DateTime.Now;
 
                 categoryDto.Id = categoryEntity.Id;
                 _mapper.Map(categoryDto, categoryEntity);

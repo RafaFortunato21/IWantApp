@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using IWantApp.Application.Contracts;
 using IWantApp.Application.DTO;
+using IWantApp.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace IWantApp.API.Controllers
 {
@@ -10,6 +13,7 @@ namespace IWantApp.API.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+        
 
         public CategoryController(ICategoryService categoryService)
         {
@@ -17,22 +21,33 @@ namespace IWantApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CategoryDTO model)
+        public async Task<IActionResult> Post(CategoryResponse model)
         {
-            if (model == null)
-                return NotFound();
 
-                        
-            await _categoryService.Add(model);
+            try
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return new CreatedAtRouteResult("GetCategory", new { id = model.Id }, model);
+                if (model == null)
+                    return NotFound();
+
+
+                await _categoryService.Add(model, userId);
+
+                return new CreatedAtRouteResult("GetCategory", new { id = model.Id }, model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(CategoryUpdateDTO model, Guid id)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            await _categoryService.Update(model, id);
+            await _categoryService.Update(model, id, userId);
 
             return new CreatedAtRouteResult("GetCategory", new { id = model.Id }, model);
         }

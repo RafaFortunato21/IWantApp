@@ -1,10 +1,4 @@
-﻿using Flunt.Notifications;
-using IWantApp.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace IWantApp.Infra.Data.Context;
+﻿namespace IWantApp.Infra.Data.Context;
 
 public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
@@ -13,7 +7,9 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<Product> Product { get; set; }
     public DbSet<Category> Category { get; set; }
+    public DbSet<Order> Order { get; set; }
 
+     
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -22,6 +18,13 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         builder.Ignore<Notification>();
         builder.Entity<Product>().Property(p => p.Name).IsRequired();
         builder.Entity<Product>().Property(p => p.Description).HasMaxLength(255);
+        
+        builder.Entity<Order>().Property(p => p.ClientId).IsRequired();
+        builder.Entity<Order>().Property(p => p.DeliveryAddress).IsRequired();
+
+        builder.Entity<Order>().HasMany(p => p.Products)
+                               .WithMany(p => p.Orders)
+                               .UsingEntity(x => x.ToTable("OrderProduct"));
 
     }
 

@@ -14,10 +14,13 @@ namespace IWantApp.Application.Mappings
         public DomainToDTOMappingProfile()
         {
             CreateMap<Category, CategoryDTO>().ReverseMap();
+            CreateMap<Category, CategoryResponse>().ReverseMap();
             CreateMap<Category, CategoryUpdateDTO>().ReverseMap();
 
 
             CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<Product, ProductRequest>().ReverseMap();
+            CreateMap<Product, ProductResponse>().ReverseMap();
         }
 
 
